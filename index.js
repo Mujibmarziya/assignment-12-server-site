@@ -402,8 +402,7 @@ run().catch(console.dir);
 //     res.send(result);
 //   })
 
-// app.get('/users', async (req, res) => {
-//   const result = await usersCollection.find().toArray();
+  const result = await usersCollection.find().toArray();
 
 
 
