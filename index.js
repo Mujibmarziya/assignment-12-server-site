@@ -398,9 +398,7 @@ run().catch(console.dir);
 //     const newuser = req.body;
 //     console.log(newuser);
 //     const result = await usersCollection.insertOne(newuser);
-//     console.log(result);
-//     res.send(result);
-//   })
+
 
   const result = await usersCollection.find().toArray();
 
