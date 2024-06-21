@@ -394,10 +394,7 @@ async function run() {
 }
 run().catch(console.dir);
 
-// // app.post('/users', async (req, res) => {
-//     const newuser = req.body;
-//     console.log(newuser);
-//     const result = await usersCollection.insertOne(newuser);
+
 
 
   const result = await usersCollection.find().toArray();
