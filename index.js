@@ -147,14 +147,7 @@ async function run() {
 
       //  carefully delete each item from the cart
       console.log('payment info', payment);
-      // const query = {
-      //   _id: {
-      //     $in: payment.cartIds.map(id => new ObjectId(id))
-      //   }
-      // };
-
-      // const deleteResult = await cartCollection.deleteMany(query);
-
+      
       res.send(paymentResult);
     });
 
@@ -232,10 +225,6 @@ async function run() {
     
 
 
-   
-
-   
-
     app.get('/items/:_id', async (req, res) => {
       const { _id } = req.params;
 
@@ -271,17 +260,6 @@ async function run() {
       res.send(result);
     });
 
-   
-
-
-
- 
-
-   
-   
-
-
-   
    
 
     app.patch('/items/:id', async (req, res) => {
