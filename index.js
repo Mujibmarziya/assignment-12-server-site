@@ -59,8 +59,7 @@ async function run() {
     const withdrawalCollections = client.db("taskDB").collection("withdrawals");
   
     app.get('/notifications', async (req, res) => {
-      // const decodeemail=req.decoded.email;
-      // console.log('inside post',decodeemail);
+     
       const result = await notificationCollection.find().toArray();
       res.send(result);
     })
