@@ -64,8 +64,7 @@ async function run() {
       res.send(result);
     })
     app.get('/items', async (req, res) => {
-      // const decodeemail=req.decoded.email;
-      // console.log('inside post',decodeemail);
+      
       const result = await itemsCollection.find().toArray();
       res.send(result);
     })
@@ -127,10 +126,7 @@ async function run() {
     });
 
     app.get('/payments', async (req, res) => {
-      // const query = { email: req.params.email }
-      // if (req.params.email !== req.decoded.email) {
-      //   return res.status(403).send({ message: 'forbidden access' });
-      // }
+     
       const result = await paymentCollection.find().toArray();
       res.send(result);
     });
