@@ -57,12 +57,7 @@ async function run() {
     const submissionCollection = client.db("taskDB").collection("submissions");
     const notificationCollection = client.db("taskDB").collection("notifications");
     const withdrawalCollections = client.db("taskDB").collection("withdrawals");
-    // app.get('/notifications', async (req, res) => {
-    //   // const decodeemail=req.decoded.email;
-    //   // console.log('inside post',decodeemail);
-    //   const result = await notificationCollection.find().toArray();
-    //   res.send(result);
-    // })
+  
     app.get('/notifications', async (req, res) => {
       // const decodeemail=req.decoded.email;
       // console.log('inside post',decodeemail);
