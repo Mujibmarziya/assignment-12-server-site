@@ -90,6 +90,13 @@ async function run() {
       console.log(result);
       res.send(result);
     });
+    app.delete('/items/:id', async (req, res) => {
+      const id = req.params.id;
+      console.log(id);
+      const query = { _id: new ObjectId(id) }
+      const result = await itemsCollection.deleteOne(query);
+      res.send(result);
+    });
 
     app.delete('/users/:id', async (req, res) => {
       const id = req.params.id;
@@ -99,13 +106,7 @@ async function run() {
       res.send(result);
     });
 
-    app.delete('/items/:id', async (req, res) => {
-      const id = req.params.id;
-      console.log(id);
-      const query = { _id: new ObjectId(id) }
-      const result = await itemsCollection.deleteOne(query);
-      res.send(result);
-    });
+  
 
        // / payment
     //  payment intent
