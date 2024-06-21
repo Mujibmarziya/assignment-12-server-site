@@ -366,7 +366,6 @@ run().catch(console.dir);
 
 
 
-  const result = await usersCollection.find().toArray();
 
 
 
