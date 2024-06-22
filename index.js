@@ -13,11 +13,11 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5002;
 
 app.use(cors({
   origin: [
-    'http://localhost:5173',
+    'http://localhost:5174',
     'https://assignment-12-46c15.web.app',
     'https://fluffy-tapioca-04c919.netlify.app',
   ],
@@ -28,7 +28,7 @@ app.use(cors({
 app.use(express.json());
 
 
-console.log(process.env.DB_USERNAME);
+
 
 
 const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSS}@cluster0.kgkkymv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
@@ -38,26 +38,47 @@ const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSS}@cl
 // console.log(uri);
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-
-  }
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverApi: ServerApiVersion.v1,
 });
 
 async function run() {
   try {
 
-    await client.connect();
-    console.log("db connected")
+    // await client.connect();
+   
     const usersCollection = client.db('taskDB').collection('user');
     const itemsCollection = client.db('taskDB').collection('items');
     const paymentCollection = client.db("taskDB").collection("payments");
     const submissionCollection = client.db("taskDB").collection("submissions");
     const notificationCollection = client.db("taskDB").collection("notifications");
     const withdrawalCollections = client.db("taskDB").collection("withdrawals");
-  
+    app.get('/items/:_id', async (req, res) => {
+      const id = req.params._id;
+      const query = { _id: new ObjectId(id) }
+      const result = await itemsCollection.findOne(query);
+      res.send(result);
+    })
+
+
+    // app.get('/items/:_id', async (req, res) => {
+    //   const { _id } = req.params;
+
+    //   try {
+    //     const item = await itemsCollection.findOne({ _id: ObjectId(_id) });
+
+    //     if (!item) {
+    //       return res.status(404).json({ message: 'Item not found' });
+    //     }
+
+    //     res.json(item);
+    //   } catch (error) {
+    //     console.error('Error fetching item:', error);
+    //     res.status(500).json({ message: 'Internal server error' });
+    //   }
+    // });
+
     app.get('/notifications', async (req, res) => {
      
       const result = await notificationCollection.find().toArray();
@@ -216,22 +237,22 @@ async function run() {
     
 
 
-    app.get('/items/:_id', async (req, res) => {
-      const { _id } = req.params;
+    // app.get('/items/:_id', async (req, res) => {
+    //   const { _id } = req.params;
 
-      try {
-        const item = await itemsCollection.findOne({ _id: ObjectId(_id) });
+    //   try {
+    //     const item = await itemsCollection.findOne({ _id: ObjectId(_id) });
 
-        if (!item) {
-          return res.status(404).json({ message: 'Item not found' });
-        }
+    //     if (!item) {
+    //       return res.status(404).json({ message: 'Item not found' });
+    //     }
 
-        res.json(item);
-      } catch (error) {
-        console.error('Error fetching item:', error);
-        res.status(500).json({ message: 'Internal server error' });
-      }
-    });
+    //     res.json(item);
+    //   } catch (error) {
+    //     console.error('Error fetching item:', error);
+    //     res.status(500).json({ message: 'Internal server error' });
+    //   }
+    // });
 
     app.put('/items/:id', async (req, res) => {
       const id = req.params.id;
@@ -354,21 +375,14 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
 
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    // await client.db("admin").command({ ping: 1 });
+  
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
   }
 }
 run().catch(console.dir);
-
-
-
-
-
-
-
 
 
 
